@@ -114,9 +114,16 @@ namespace Calculator
             addNumber(9);
         }
 
-        private void btnAC_Click(object sender, RoutedEventArgs e)
+        private void ClearAll()
         {
             Number = 0;
+            prevNumber = 0;
+            action= Action.None;
+        }
+
+        private void btnAC_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAll();
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -141,6 +148,11 @@ namespace Calculator
 
         private void btnEqual_Click(object sender, RoutedEventArgs e)
         {
+            Calculate();
+        }
+
+        private void Calculate()
+        {
             switch (action)
             {
                 case Action.None:
@@ -156,6 +168,71 @@ namespace Calculator
                     break;
                 case Action.Minus:
                     Number = prevNumber - number;
+                    break;
+            }
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    ClearAll();
+                    break;
+                case Key.NumPad0:
+                case Key.D0:
+                    addNumber(0);
+                    break;
+                case Key.NumPad1:
+                case Key.D1:
+                    addNumber(1);
+                    break;
+                case Key.NumPad2:
+                case Key.D2:
+                    addNumber(2);
+                    break;
+                case Key.NumPad3:
+                case Key.D3:
+                    addNumber(3);
+                    break;
+                case Key.NumPad4:
+                case Key.D4:
+                    addNumber(4);
+                    break;
+                case Key.NumPad5:
+                    addNumber(5);
+                    break;
+                case Key.NumPad6:
+                    addNumber(6);
+                    break;
+                case Key.NumPad7:
+                    addNumber(7);
+                    break;
+                case Key.NumPad8:
+                    addNumber(8);
+                    break;
+                case Key.NumPad9:
+                    addNumber(9);
+                    break;
+                case Key.Add:
+                    selectAction(Action.Plus);
+                    break;
+                case Key.Subtract:
+                    selectAction(Action.Minus);
+                    break;
+                case Key.Multiply:
+                    selectAction(Action.Multiple);
+                    break;
+                case Key.Divide:
+                    selectAction(Action.Share);
+                    break;
+                case Key.Enter:
+                    Calculate();
                     break;
             }
         }

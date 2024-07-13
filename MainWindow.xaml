@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="441" Width="292" ResizeMode="NoResize">
+        Title="MainWindow" Height="441" Width="292" ResizeMode="NoResize" KeyUp="Window_KeyUp" KeyDown="Window_KeyDown">
     <Grid Margin="10,10,10,10">
         <Button x:Name="btn3" Content="3" HorizontalAlignment="Left" Margin="130,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.757,-0.749" Height="60" Width="60" Click="btn3_Click"/>
         <Button x:Name="btn1" Content="1" HorizontalAlignment="Left" Margin="0,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.757,-0.749" Height="60" Width="60" Click="btn1_Click"/>
