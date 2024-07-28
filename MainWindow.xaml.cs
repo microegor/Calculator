@@ -33,11 +33,11 @@ namespace Calculator
             InitializeComponent();
         }
 
-        private int number;
-        private int prevNumber = 0;
+        private double number;
+        private double prevNumber = 0;
         private Action action = Action.None;
 
-        private int Number {  
+        private double Number {  
             get
             {
                 return number;
@@ -51,7 +51,7 @@ namespace Calculator
 
         private void addNumber(int value)
         {
-            int num = Number;
+            double num = Number;
             num = num * 10 + value;
 
             Number = num;
