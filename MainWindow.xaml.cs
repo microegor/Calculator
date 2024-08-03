@@ -18,7 +18,26 @@ namespace Calculator
 
         private void UpdateDisplay()
         {
-            txtNums.Text = calculator.Display.ToString();
+            string displayText = calculator.Display.ToString("G9");
+
+            if (displayText.Contains("E"))
+            {
+                // Найти индекс символа 'E'
+                int eIndex = displayText.IndexOf('E');
+                // Вычислить длину экспоненциальной части
+                int expLength = displayText.Length - eIndex;
+                // Обрезать левую часть строки так, чтобы общая длина не превышала 9 символов
+                if (eIndex > 9 - expLength)
+                {
+                    displayText = displayText.Substring(0, 9 - expLength) + displayText.Substring(eIndex);
+                }
+            }
+            else if (displayText.Length > 9)
+            {
+                displayText = displayText.Substring(0, 9);
+            }
+
+            txtNums.Text = displayText;
         }
 
         private void btn0_Click(object sender, RoutedEventArgs e)
@@ -209,7 +228,13 @@ namespace Calculator
                     calculator.Calculate();
                     UpdateDisplay();
                     break;
+                case Key.OemPeriod:
+                case Key.Decimal:
+                    calculator.AddDecimalSeparator();
+                    targetButton = btnDot;
+                    break;
             }
+
             if (targetButton != null)
             {
                 var originalColor = (Color)ColorConverter.ConvertFromString(targetButton.Tag.ToString());
@@ -218,6 +243,12 @@ namespace Calculator
                 colorAnimation.From = originalColor;
                 storyboard.Begin(targetButton);
             }
+        }
+
+        private void btnDot_Click(object sender, RoutedEventArgs e)
+        {
+                calculator.AddDecimalSeparator();
+                UpdateDisplay();
         }
     }
 }

@@ -172,7 +172,7 @@
                 RenderTransformOrigin="2.757,-0.749"
                 Height="60"
                 Width="60"
-                Tag="{Binding Background, RelativeSource={RelativeSource Self}}"/>
+                Tag="{Binding Background, RelativeSource={RelativeSource Self}}" Click="btnDot_Click"/>
         <Button x:Name="btnAC"
                 Content="AC"
                 HorizontalAlignment="Left"

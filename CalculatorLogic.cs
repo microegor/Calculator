@@ -22,60 +22,58 @@ public class CalculatorLogic
     private bool hasLastNumber = false;
     private Action action = Action.None;
     private bool isNewEntry = false;
+    private bool hasDecimalSeparator = false;
 
-    /// <summary>
-    /// Текущее значение, отображаемое на дисплее калькулятора.
-    /// </summary>
     public double Display
     {
         get { return display; }
         set { display = value; }
     }
 
-    /// <summary>
-    /// Добавляет число к текущему значению на дисплее.
-    /// </summary>
-    /// <param name="value">Число для добавления.</param>
-    public void AddNumber(int value)
+    public void AddDecimalSeparator()
     {
-        double num = 0;
-        if (!isNewEntry)
+        if (!hasDecimalSeparator)
         {
-            num = Display;
+            hasDecimalSeparator = true;
+            Display = double.Parse(Display.ToString() + ",");
         }
-        else
-        {
-            isNewEntry = false;
-        }
-        num = num * 10 + value;
-        Display = num;
     }
 
-    /// <summary>
-    /// Выбирает действие для выполнения.
-    /// </summary>
-    /// <param name="value">Действие для выполнения.</param>
+    public void AddNumber(int value)
+    {
+        if (isNewEntry)
+        {
+            Display = 0;
+            isNewEntry = false;
+        }
+
+        string displayStr = Display.ToString();
+        if (hasDecimalSeparator && !displayStr.Contains(","))
+        {
+            displayStr += ",";
+        }   
+        displayStr += value.ToString();
+
+        Display = double.Parse(displayStr);
+    }
+
     public void SelectAction(Action value)
     {
         result = Display;
         action = value;
         hasLastNumber = false;
         isNewEntry = true;
+        hasDecimalSeparator = false;
     }
 
-    /// <summary>
-    /// Очищает все значения и сбрасывает калькулятор.
-    /// </summary>
     public void ClearAll()
     {
         Display = 0;
         lastNumber = 0;
         action = Action.None;
+        hasDecimalSeparator = false;
     }
 
-    /// <summary>
-    /// Выполняет вычисление на основе выбранного действия.
-    /// </summary>
     public void Calculate()
     {
         if (!hasLastNumber)
